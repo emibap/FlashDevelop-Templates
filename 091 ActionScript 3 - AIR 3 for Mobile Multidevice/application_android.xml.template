@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<application xmlns="http://ns.adobe.com/air/application/3.0">
+	<id>$(PACKAGEDOT)$(PROJECTID)</id>
+    <versionNumber>0.1</versionNumber>
+    <filename>$(PROJECTID)</filename>
+	<description/>
+    <name>$(PROJECTNAME)</name>
+	<copyright/>
+    <initialWindow>
+        <content>bin/$(PROJECTID).swf</content>
+        <renderMode>gpu</renderMode>
+        <fullScreen>true</fullScreen>
+        <aspectRatio>portrait</aspectRatio>
+        <autoOrients>true</autoOrients>
+		<systemChrome>standard</systemChrome>
+    </initialWindow>
+    <supportedProfiles>mobileDevice desktop</supportedProfiles>
+	<icon>
+		<image72x72>bin/icons/icon_72.png</image72x72>
+	</icon>
+	<android>
+		<manifestAdditions><![CDATA[
+			<manifest android:installLocation="auto">
+				<uses-permission android:name="android.permission.INTERNET"/>
+				<uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch"/>
+			</manifest>
+		]]></manifestAdditions>
+	</android>
+	<!-- 
+	AIR options:
+	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
+	
+	AIR mobile options:
+	http://help.adobe.com/en_US/air/build/WSfffb011ac560372f-5d0f4f25128cc9cd0cb-7ffe.html
+	
+	Android manifest documentation:
+	http://developer.android.com/guide/topics/manifest/manifest-intro.html
+	-->
+</application>

@@ -1,0 +1,43 @@
+:: ADT Android certificate creator
+:: Added by Emibap
+:: http://www.emibap.com
+
+cls
+@echo off
+
+:: Path to Flex SDK binaries
+:: for instance: C:\Flex45_AIR3_SDK\bin\
+set FLEX_SDK=$(FlexSDK)\bin\
+
+:: Certificate files
+set CERTIFICATE_FILE=certificates\AndroidCert.p12
+
+:: Set your password here or leave blank if you want to input it every time because you trust no one ;)
+set APP_PASSWORD=
+
+echo Android Certificate Generator
+
+if "%APP_PASSWORD%"=="" (goto pass) else (goto generate)
+
+:pass
+echo Before you enter your password, make sure no-one is looking!
+set /p APP_PASSWORD=Enter Certificate Password:
+cls
+echo. Thanks, password input done.
+echo.
+goto generate
+
+:generate
+call %FLEX_SDK%adt -certificate -validityPeriod 25 -cn SelfSigned 1024-RSA %CERTIFICATE_FILE% %APP_PASSWORD%
+if errorlevel 1 goto failed
+echo. Calling ADT to create certificate...
+goto end
+
+:failed
+echo. --------------------------------------------------------
+echo. ERROR while creating the Android certificate.
+pause
+
+:end
+echo. certificate created in %CERTIFICATE_FILE%
+pause

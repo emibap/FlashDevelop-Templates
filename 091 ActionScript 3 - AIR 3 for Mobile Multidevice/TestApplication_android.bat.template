@@ -1,0 +1,30 @@
+:: Android ADL Caller
+:: More information:
+:: http://help.adobe.com/en_US/air/build/WS5b3ccc516d4fbf351e63e3d118666ade46-7fd7.html
+::
+:: Based on the iPhone version by http://blubl.geoathome.at (german) and James McNess (http://www.codeandvisual.com)
+::	
+:: Adapted by Emiliano Angelini
+:: http://www.emibap.com
+
+cls
+@echo off
+
+:: Path to Flex SDK binaries
+:: for instance: C:\Flex45_AIR3_SDK\bin\
+set FLEX_SDK=$(FlexSDK)\bin\
+
+call %FLEX_SDK%adl -screensize SamsungGalaxyS application_android.xml
+if errorlevel 1 goto failed
+echo. Calling ADL...
+goto end
+
+:failed
+echo. --------------------------------------------------------
+echo. ERROR when calling ADL.
+echo.
+echo. Troubleshotting: Check your application.xml file
+echo.
+pause
+
+:end

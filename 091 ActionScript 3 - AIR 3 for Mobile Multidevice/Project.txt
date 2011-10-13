@@ -1,1 +1,2 @@
-An AIR for Mobile Multidevice project written in AS3
+An AIR for Mobile Multidevice project written in AS3.
+Currently supporting iOS and Android devices

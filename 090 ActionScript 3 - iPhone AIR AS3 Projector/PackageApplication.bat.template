@@ -1,7 +1,6 @@
 :: iPhone IPA generator
 :: More information:
-:: http://labs.adobe.com/technologies/packagerforiphone/
-:: http://download.macromedia.com/pub/labs/packagerforiphone/packagerforiphone_devguide.pdf
+:: http://www.adobe.com/special/products/air/sdk/
 ::
 :: FlashDevelop Project Template
 :: http://blubl.geoathome.at (german)
@@ -15,13 +14,14 @@ cls
 @echo off
 
 :: Path to Flex SDK binaries
-set FLEX_SDK=C:\Flex45_AIR3_SDK\bin\
+:: for instance: C:\Flex45_AIR3_SDK\bin\
+set FLEX_SDK=$(FlexSDK)\bin\
 
 :: Certificate files
 set CERTIFICATE_FILE=certificates\iphone_dev.p12
 set PROVISIONING_FILE=certificates\iphone_dev.mobileprovision
 
-:: Set your password here or leave blank if you want to input it every time because you trust noone ;)
+:: Set your password here or leave blank if you want to input it every time because you trust no one ;)
 set APP_PASSWORD=
 
 :menu

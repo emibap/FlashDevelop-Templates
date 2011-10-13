@@ -1,0 +1,86 @@
+:: Android APK generator
+:: More information:
+:: http://www.adobe.com/special/products/air/sdk/
+::
+:: Based on the iPhone version by http://blubl.geoathome.at (german) and James McNess (http://www.codeandvisual.com)
+::	
+:: Adapted by Emiliano Angelini
+:: http://www.emibap.com
+
+cls
+@echo off
+
+:: Path to Flex SDK binaries
+:: for instance: C:\Flex45_AIR3_SDK\bin\
+set FLEX_SDK=$(FlexSDK)\bin\
+
+:: Certificate files
+set CERTIFICATE_FILE=certificates\AndroidCert.p12
+
+:: Set your password here or leave blank if you want to input it every time because you trust no one ;)
+set APP_PASSWORD=
+
+:menu
+echo Android APK generator
+echo.
+echo. What kind of APK do you wish to create?
+echo.
+echo.  [1]emulator (apk-emulator)
+echo.  [2]APK (apk)
+echo.  [3]captive (apk-captive-runtime)
+echo.  [4]install AIR Runtime on current device
+echo.  [5]install generated App on current device
+echo.  [6]exit
+echo.
+
+:choice
+set /P C=[Option]:
+if "%C%"=="1" set APK_TYPE=apk-emulator
+if "%C%"=="2" set APK_TYPE=apk
+if "%C%"=="3" set APK_TYPE=apk-captive-runtime
+if "%C%"=="4" goto install-runtime
+if "%C%"=="5" goto install-app
+if "%C%"=="6" goto end
+
+echo. You have chosen '%APK_TYPE%'.
+echo. 
+goto apk
+
+:install-runtime
+call %FLEX_SDK%adt -installRuntime -platform android
+if errorlevel 1 goto failed
+goto menu
+
+:install-app
+call %FLEX_SDK%adt -installApp -platform android -package android/$(PROJECTID)-%APK_TYPE%.apk
+if errorlevel 1 goto failed
+goto menu
+
+:pass
+echo Before you enter your password, make sure no-one is looking!
+set /p APP_PASSWORD=Enter Certificate Password:
+cls
+echo. Thanks, password input done.
+echo.
+goto apk
+
+:apk
+if "%APP_PASSWORD%"=="" goto pass
+echo. APK creation may take up to 2 minutes, please be patient
+echo. --------------------------------------------------------
+call "%FLEX_SDK%adt.bat" -package -target %APK_TYPE% -storetype pkcs12 -storepass %APP_PASSWORD% -keystore %CERTIFICATE_FILE% android/$(PROJECTID)-%APK_TYPE%.apk application_android.xml bin/$(PROJECTID).swf bin/icons/icon_72.png
+if errorlevel 1 goto failed
+echo. --------------------------------------------------------
+echo. SUCCESS: APK created in (./android/$(PROJECTID)-%APK_TYPE%.apk)
+echo.
+goto menu
+
+:failed
+echo. --------------------------------------------------------
+echo. ERROR: APK creation FAILED.
+echo.
+echo. Troubleshotting: did you configure the Flex SDK path in this Batch file?
+echo.
+
+:end
+pause

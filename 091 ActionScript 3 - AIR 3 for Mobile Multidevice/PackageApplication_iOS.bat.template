@@ -1,7 +1,6 @@
-:: iPhone IPA generator
+:: iOS IPA generator
 :: More information:
-:: http://labs.adobe.com/technologies/packagerforiphone/
-:: http://download.macromedia.com/pub/labs/packagerforiphone/packagerforiphone_devguide.pdf
+:: http://www.adobe.com/special/products/air/sdk/
 ::
 :: FlashDevelop Project Template
 :: http://blubl.geoathome.at (german)
@@ -15,17 +14,18 @@ cls
 @echo off
 
 :: Path to Flex SDK binaries
-set FLEX_SDK=C:\Flex45_AIR3_SDK\bin\
+:: for instance: C:\Flex45_AIR3_SDK\bin\
+set FLEX_SDK=$(FlexSDK)\bin\
 
 :: Certificate files
 set CERTIFICATE_FILE=certificates\iphone_dev.p12
 set PROVISIONING_FILE=certificates\iphone_dev.mobileprovision
 
-:: Set your password here or leave blank if you want to input it every time because you trust noone ;)
+:: Set your password here or leave blank if you want to input it every time because you trust no one ;)
 set APP_PASSWORD=
 
 :menu
-echo iPhone IPA generator
+echo iOS IPA generator
 echo.
 echo. What kind of ipa do you wish to create?
 echo.
@@ -51,7 +51,7 @@ if "%APP_PASSWORD%"=="" (goto pass) else (goto ipa)
 echo Before you enter your password, make sure no-one is looking!
 set /p APP_PASSWORD=Enter Certificate Password:
 cls
-echo iPhone IPA generator
+echo iOS IPA generator
 echo.
 echo. Thanks, password input done.
 echo.
@@ -61,10 +61,10 @@ goto ipa
 echo. IPA creation may take up to 3 minutes, please be patient
 echo. --------------------------------------------------------
 set SIGNING_OPTIONS= -target %IPATYPE% -keystore %CERTIFICATE_FILE% -storetype pkcs12 -storepass %APP_PASSWORD% -provisioning-profile %PROVISIONING_FILE%
-call "%FLEX_SDK%adt.bat" -package %SIGNING_OPTIONS% iphone/$(PROJECTID)-%IPATYPE%.ipa application.xml bin/$(PROJECTID).swf bin/icons Default.png
+call "%FLEX_SDK%adt.bat" -package %SIGNING_OPTIONS% iOS/$(PROJECTID)-%IPATYPE%.ipa application.xml bin/$(PROJECTID).swf bin/icons Default.png
 if errorlevel 1 goto failed
 echo. --------------------------------------------------------
-echo. SUCCESS: IPA created in (./iphone/$(PROJECTID)-%IPATYPE%.ipa)
+echo. SUCCESS: IPA created in (./iOS/$(PROJECTID)-%IPATYPE%.ipa)
 echo.
 goto end
 

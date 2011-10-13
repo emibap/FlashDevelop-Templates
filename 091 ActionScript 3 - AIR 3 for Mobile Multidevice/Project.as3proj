@@ -84,7 +84,7 @@
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Custom" />
-    <option testMovieCommand="$(FlexSDK)\bin\adl.exe;application.xml .\" />
+    <option testMovieCommand="$(FlexSDK)\bin\adl.exe;application_iOS.xml .\" />
   </options>
   <!-- Plugin storage -->
   <storage />
