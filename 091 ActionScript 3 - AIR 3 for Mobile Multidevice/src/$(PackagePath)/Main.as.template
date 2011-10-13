@@ -1,0 +1,32 @@
+package $(PackageName)$(CSLB){
+		import flash.display.Sprite;  
+		import flash.display.StageAlign;
+		import flash.display.StageScaleMode;
+		import flash.text.TextField;  
+		import flash.text.TextFormat;  
+	
+	/**
+	$(CBI)* ...
+	$(CBI)* @author $(DefaultUser)
+	$(CBI)*/
+	public class Main extends Sprite $(CSLB){
+		
+		public function Main():void $(CSLB){
+			stage.align = StageAlign.TOP_LEFT;  
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			
+			var tf:TextField = new TextField();  
+			var format:TextFormat = new TextFormat();  
+			format.font = "_sans";  
+			format.size = 48;  
+			tf.defaultTextFormat = format;  
+			tf.text = "Hello World";  
+			tf.width = stage.stageWidth - 20;  
+			tf.x = 10;  
+			tf.y = 10;  
+			addChild(tf);  
+		}
+		
+	}
+	
+}
